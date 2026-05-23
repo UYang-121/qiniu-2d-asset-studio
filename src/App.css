@@ -1,0 +1,27 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.app-panel {
+  width: min(560px, 100%);
+  padding: 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+.app-panel h1 {
+  margin: 0 0 12px;
+  font-size: 2rem;
+  color: #111827;
+}
+
+.app-panel p {
+  margin: 0;
+  color: #6b7280;
+}
