@@ -1,6 +1,8 @@
 # 2D 素材生成工具
 
-> Demo 视频链接：待补充
+> Demo 视频链接：[百度网盘 - demo.MOV](https://pan.baidu.com/s/1dJj_IQKAgkd88TK1Zpo1Sw?pwd=f8cg)
+>
+> 提取码：`f8cg`
 
 一个用于生成 2D 游戏基础素材草稿的前端工具，支持批量预览、单张素材下载，以及图集与坐标文件导出。
 
