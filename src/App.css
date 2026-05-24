@@ -1,27 +1,142 @@
-.app-shell {
+.page-shell {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 24px;
 }
 
-.app-panel {
-  width: min(560px, 100%);
-  padding: 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+.topbar,
+.workspace,
+.grid-two,
+.grid-three,
+.asset-meta {
+  display: flex;
+  gap: 16px;
 }
 
-.app-panel h1 {
-  margin: 0 0 12px;
-  font-size: 2rem;
+.topbar {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.topbar h1,
+.panel-head h2,
+.result-head h2 {
+  margin: 0;
+}
+
+.topbar p,
+.panel-head p,
+.result-head p,
+.asset-meta p {
+  margin: 6px 0 0;
+  color: #6b7280;
+}
+
+.workspace {
+  align-items: flex-start;
+}
+
+.control-panel,
+.result-panel,
+.asset-card {
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.control-panel {
+  width: 320px;
+  padding: 18px;
+}
+
+.result-panel {
+  flex: 1;
+  padding: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.grid-two > *,
+.grid-three > * {
+  flex: 1;
+}
+
+.primary-btn,
+.text-btn {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.text-btn {
+  background: #fff;
   color: #111827;
 }
 
-.app-panel p {
-  margin: 0;
-  color: #6b7280;
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.asset-card {
+  overflow: hidden;
+}
+
+.asset-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  padding: 18px;
+  background: #f9fafb;
+}
+
+.asset-preview img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.asset-meta {
+  flex-direction: column;
+  padding: 0 14px 14px;
+}
+
+.asset-meta strong {
+  display: block;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 980px) {
+  .workspace {
+    flex-direction: column;
+  }
+
+  .control-panel {
+    width: 100%;
+  }
 }
