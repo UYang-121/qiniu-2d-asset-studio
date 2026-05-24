@@ -7,7 +7,7 @@ import {
   type AssetBatch,
   type GeneratorForm,
 } from './lib/generator'
-import { downloadSvg } from './lib/export'
+import { downloadAtlasJson, downloadAtlasPng, downloadSvg } from './lib/export'
 
 const defaultForm: GeneratorForm = {
   projectName: 'forest_pack_v1',
@@ -22,6 +22,7 @@ const defaultForm: GeneratorForm = {
 function App() {
   const [form, setForm] = useState<GeneratorForm>(defaultForm)
   const [batch, setBatch] = useState<AssetBatch>(() => generateBatch(defaultForm))
+  const [busy, setBusy] = useState(false)
   const previewSize = Math.round(batch.size * 1.15)
 
   function patchForm<K extends keyof GeneratorForm>(key: K, value: GeneratorForm[K]) {
@@ -29,7 +30,22 @@ function App() {
   }
 
   function handleGenerate() {
-    setBatch(generateBatch(form))
+    setBusy(true)
+
+    window.setTimeout(() => {
+      setBatch(generateBatch(form))
+      setBusy(false)
+    }, 120)
+  }
+
+  async function handleExportPng() {
+    setBusy(true)
+
+    try {
+      await downloadAtlasPng(batch)
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -37,11 +53,16 @@ function App() {
       <header className="topbar">
         <div>
           <h1>2D 素材生成工具</h1>
-          <p>用于快速生成一组风格统一的 2D 游戏素材草稿。</p>
+          <p>用于快速生成、预览和导出一组 2D 游戏素材。</p>
         </div>
-        <button type="button" className="primary-btn" onClick={handleGenerate}>
-          生成素材
-        </button>
+        <div className="topbar-actions">
+          <button type="button" className="secondary-btn" onClick={handleGenerate} disabled={busy}>
+            {busy ? '处理中...' : '生成素材'}
+          </button>
+          <button type="button" className="primary-btn" onClick={handleExportPng} disabled={busy}>
+            导出图集 PNG
+          </button>
+        </div>
       </header>
 
       <section className="workspace">
@@ -157,7 +178,7 @@ function App() {
             <ul className="note-list">
               <li>补充描述里的颜色词会影响当前批次的主配色。</li>
               <li>修改尺寸后，预览区会同步调整素材显示大小。</li>
-              <li>当前页面支持预览结果并逐张下载 SVG 素材。</li>
+              <li>当前版本支持单张下载、图集 PNG 导出和 atlas JSON 导出。</li>
             </ul>
           </div>
         </aside>
@@ -237,6 +258,36 @@ function App() {
             </div>
           </div>
 
+          <div className="sub-panel">
+            <div className="sub-panel-head">
+              <h3>导出结果</h3>
+              <span>整包导出</span>
+            </div>
+            <div className="file-list">
+              <div className="file-row">
+                <strong>{batch.projectName}-atlas.png</strong>
+                <button
+                  type="button"
+                  className="text-btn"
+                  onClick={handleExportPng}
+                  disabled={busy}
+                >
+                  下载 PNG
+                </button>
+              </div>
+              <div className="file-row">
+                <strong>{batch.projectName}-atlas.json</strong>
+                <button
+                  type="button"
+                  className="text-btn"
+                  onClick={() => downloadAtlasJson(batch)}
+                  disabled={busy}
+                >
+                  下载 JSON
+                </button>
+              </div>
+            </div>
+          </div>
         </section>
       </section>
     </main>
